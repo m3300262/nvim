@@ -1,14 +1,12 @@
 return {
-    -- 我們隨便借一個不會做任何事的核心入口，或者直接用虛擬插件
     "neovim/nvim-lspconfig", 
     dependencies = {
-        "hrsh7th/cmp-nvim-lsp", -- 核心：確保這個插件先載入，才不會噴 module not found
+        -- 1. 把舊的 cmp-nvim-lsp 踢掉，換成新世代的 blink.cmp
+        "Saghen/blink.cmp",
+        -- 可選：如果你的環境沒有 pre-built 的 binary，可以加上 build = 'cargo build --release'
+        -- 但通常從 lazy.nvim 下載 stable 版本都會自帶編譯好的 binary。
     },
     config = function()
-        -- =====================================================================
-        -- 這裡放你剛剛瘦身過後的整包設定
-        -- =====================================================================
-        
         -- 1. 全局 LSP 預設設定
         vim.lsp.config('*', {
             root_markers = { '.git' },
@@ -62,8 +60,9 @@ return {
             end,
         })
 
-        -- 5. 取得 nvim-cmp 自動補全的相容能力 (此時 require 就不會報錯了)
-        local caps = require("cmp_nvim_lsp").default_capabilities()
+        -- 5. 【修改重點】改用 blink.cmp 來獲取 LSP 補全能力
+        -- 它會幫你注入片段（snippets）支援和更強的補全擴充
+        local caps = require("blink.cmp").get_lsp_capabilities()
 
         -- Lua
         vim.lsp.config['luals'] = {
