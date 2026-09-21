@@ -15,8 +15,12 @@ return {
             vim.keymap.set("n", "<leader>h", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "Harpoon Menu" })
 
             -- 3. 快速切換檔案 (改用 Alt + j/k，不卡 <C-p>/<C-n>)
-            vim.keymap.set("n", "<M-j>", function() harpoon:list():next() end, { desc = "Harpoon Next" })
-            vim.keymap.set("n", "<M-k>", function() harpoon:list():prev() end, { desc = "Harpoon Prev" })
+            vim.keymap.set("n", "<C-j>", function() harpoon:list():next() end, { desc = "Harpoon Next" })
+            vim.keymap.set("n", "<C-k>", function() harpoon:list():prev() end, { desc = "Harpoon Prev" })
+	    vim.keymap.set("n", "<C-1>", function() harpoon:list():select(1) end, {desc = "Harpoon File 1" })
+	    vim.keymap.set("n", "<C-2>", function() harpoon:list():select(2) end, {desc = "Harpoon File 2" })
+	    vim.keymap.set("n", "<C-3>", function() harpoon:list():select(3) end, {desc = "Harpoon File 3" })
+	    vim.keymap.set("n", "<C-4>", function() harpoon:list():select(4) end, {desc = "Harpoon File 4" })
 
             -- 4. 你的 Telescope 整合版
             vim.keymap.set("n", "<leader>fl", function()
